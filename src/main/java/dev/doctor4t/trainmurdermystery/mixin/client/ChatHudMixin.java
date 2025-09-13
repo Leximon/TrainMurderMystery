@@ -1,5 +1,7 @@
 package dev.doctor4t.trainmurdermystery.mixin.client;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import dev.doctor4t.trainmurdermystery.client.TrainMurderMysteryClient;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.gui.DrawContext;
@@ -12,10 +14,10 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ChatHud.class)
 public class ChatHudMixin {
-    @Inject(method = "render", at = @At("HEAD"), cancellable = true)
-    public void tmm$disableChatRender(DrawContext context, int currentTick, int mouseX, int mouseY, boolean focused, CallbackInfo ci) {
-        if (TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
-            ci.cancel();
+    @WrapMethod(method = "render")
+    public void tmm$disableChatRender(DrawContext context, int currentTick, int mouseX, int mouseY, boolean focused, Operation<Void> original) {
+        if (!TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
+            original.call(context, currentTick, mouseX, mouseY, focused);
         }
     }
 }

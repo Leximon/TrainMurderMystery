@@ -1,5 +1,7 @@
 package dev.doctor4t.trainmurdermystery.mixin.client;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import dev.doctor4t.trainmurdermystery.client.TrainMurderMysteryClient;
 import dev.doctor4t.trainmurdermystery.client.gui.screen.ingame.LimitedInventoryScreen;
 import net.minecraft.client.gui.screen.ingame.AbstractInventoryScreen;
@@ -18,11 +20,12 @@ public abstract class CreativeInventoryScreenMixin extends AbstractInventoryScre
         super(screenHandler, playerInventory, text);
     }
 
-    @Inject(method = "handledScreenTick", at = @At("HEAD"), cancellable = true)
-    public void tmm$replaceSurvivalInventory(CallbackInfo ci) {
+    @WrapMethod(method = "handledScreenTick")
+    public void tmm$replaceSurvivalInventory(Operation<Void> original) {
         if (TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
             this.client.setScreen(new LimitedInventoryScreen(this.client.player));
-            ci.cancel();
+        } else {
+            original.call();
         }
     }
 }

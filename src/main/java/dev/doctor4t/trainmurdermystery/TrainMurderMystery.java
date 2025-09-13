@@ -8,6 +8,7 @@ import dev.doctor4t.trainmurdermystery.index.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +41,11 @@ public class TrainMurderMystery implements ModInitializer {
         // Game loop tick
         ServerTickEvents.START_WORLD_TICK.register(GameLoop::tick);
     }
+
+    public static boolean shouldRestrictPlayerOptions(PlayerEntity player) {
+        return player != null && !player.isSpectator() && !player.isCreative();
+    }
+
 }
 
 // TODO: Add tasks
@@ -47,3 +53,4 @@ public class TrainMurderMystery implements ModInitializer {
 // TODO: Add snack cabinet
 // TODO: Add drink cabinet
 // TODO: Add instinct
+// TODO: Add death when off the train

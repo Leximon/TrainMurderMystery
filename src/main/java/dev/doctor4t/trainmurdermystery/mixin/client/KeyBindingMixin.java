@@ -27,7 +27,6 @@ public abstract class KeyBindingMixin {
                     this.equals(MinecraftClient.getInstance().options.jumpKey) ||
                     this.equals(MinecraftClient.getInstance().options.playerListKey) ||
                     this.equals(MinecraftClient.getInstance().options.togglePerspectiveKey) ||
-                    this.equals(MinecraftClient.getInstance().options.sprintKey) ||
                     this.equals(MinecraftClient.getInstance().options.advancementsKey);
         }
         return false;

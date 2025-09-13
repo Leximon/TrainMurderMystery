@@ -1,5 +1,6 @@
 package dev.doctor4t.trainmurdermystery.mixin.client;
 
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import dev.doctor4t.trainmurdermystery.TrainMurderMystery;
@@ -18,24 +19,24 @@ public class InGameHudMixin {
     private static final Identifier TMM_HOTBAR_TEXTURE = TrainMurderMystery.id("hud/hotbar");
     private static final Identifier TMM_HOTBAR_SELECTION_TEXTURE = TrainMurderMystery.id("hud/hotbar_selection");
 
-    @Inject(method = "renderStatusBars", at = @At("HEAD"), cancellable = true)
-    private void tmm$removeStatusBars(DrawContext context, CallbackInfo ci) {
-        if (TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
-            ci.cancel();
+    @WrapMethod(method = "renderStatusBars")
+    private void tmm$removeStatusBars(DrawContext context, Operation<Void> original) {
+        if (!TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
+            original.call(context);
         }
     }
 
-    @Inject(method = "renderExperienceBar", at = @At("HEAD"), cancellable = true)
-    private void tmm$removeExperienceBar(DrawContext context, int x, CallbackInfo ci) {
-        if (TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
-            ci.cancel();
+    @WrapMethod(method = "renderExperienceBar")
+    private void tmm$removeExperienceBar(DrawContext context, int x, Operation<Void> original) {
+        if (!TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
+            original.call(context, x);
         }
     }
 
-    @Inject(method = "renderExperienceLevel", at = @At("HEAD"), cancellable = true)
-    private void tmm$removeExperienceLevel(DrawContext context, RenderTickCounter tickCounter, CallbackInfo ci) {
-        if (TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
-            ci.cancel();
+    @WrapMethod(method = "renderExperienceLevel")
+    private void tmm$removeExperienceLevel(DrawContext context, RenderTickCounter tickCounter, Operation<Void> original) {
+        if (!TrainMurderMysteryClient.shouldRestrictPlayerOptions()) {
+            original.call(context, tickCounter);
         }
     }
 
