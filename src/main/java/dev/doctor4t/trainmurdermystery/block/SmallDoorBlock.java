@@ -148,9 +148,9 @@ public class SmallDoorBlock extends DoorPartBlock {
                 if (entity.isOpen()) {
                     return open(state, world, entity, lowerPos);
                 } else if (requiresKey) {
-                    if (player.getMainHandStack().isOf(TrainMurderMysteryItems.KEY)) {
+                    if (player.getMainHandStack().isOf(TrainMurderMysteryItems.KEY) || hasLockpick) {
                         LoreComponent lore = player.getMainHandStack().get(DataComponentTypes.LORE);
-                        boolean isRightKey = lore != null && lore.lines().getFirst().getString().equals(entity.getKeyName());
+                        boolean isRightKey = lore != null && !lore.lines().isEmpty() && lore.lines().getFirst().getString().equals(entity.getKeyName());
                         if (isRightKey || hasLockpick) {
                             if (isRightKey) world.playSound(null, lowerPos.getX() + .5f, lowerPos.getY() + 1, lowerPos.getZ() + .5f, TrainMurderMysterySounds.ITEM_KEY_DOOR, SoundCategory.BLOCKS, 1f, 1f);
                             if (hasLockpick) world.playSound(null, lowerPos.getX() + .5f, lowerPos.getY() + 1, lowerPos.getZ() + .5f, TrainMurderMysterySounds.ITEM_LOCKPICK_DOOR, SoundCategory.BLOCKS, 1f, 1f);

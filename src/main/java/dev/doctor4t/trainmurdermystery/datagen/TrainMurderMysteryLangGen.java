@@ -216,14 +216,17 @@ public class TrainMurderMysteryLangGen extends FabricLanguageProvider {
         builder.add("tip.door.requires_different_key", "This door is locked and requires a different key to be opened.");
         builder.add("tip.door.jammed", "This door is jammed and cannot be opened at the moment!");
 
-        builder.add("tip.knife.tooltip1", "Right-click to use, hold for a second and get close to your victim!");
-        builder.add("tip.knife.tooltip2", "After a kill, cannot be used for 3 minutes.");
-        builder.add("tip.knife.tooltip3", "Can also be used to push players off the train with an attack (no cooldown).");
         builder.add("tip.cooldown", "On cooldown: %s");
-        builder.add("tip.lockpick.tooltip1", "Use on any door to open.");
-        builder.add("tip.lockpick.tooltip2", "Sneak-use on a door to lock it for 1 minute.");
+        builder.add("tip.knife.tooltip1", "Right-click to use, hold for a second and get close to your victim!");
+        builder.add("tip.knife.tooltip2", "After a kill, cannot be used for 3 minutes");
+        builder.add("tip.knife.tooltip3", "Attack to knock back / push a player (no cooldown)");
+        builder.add("tip.lockpick.tooltip1", "Use on any locked door to open it (no cooldown)");
+        builder.add("tip.lockpick.tooltip2", "Sneak-use on a door to jam it for 1 minute (disables the lockpick for 5 minutes)");
 
         builder.add("game.win.hitmen", "All targets were eliminated: The Hitmen win!");
         builder.add("game.win.passengers", "All hitmen were eliminated: The Passengers win!");
+
+        builder.add("key.trainmurdermystery.instinct", "Instinct");
+        builder.add("category.trainmurdermystery.keybinds", "Train Murder Mystery");
     }
 }

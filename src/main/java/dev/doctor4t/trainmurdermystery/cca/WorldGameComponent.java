@@ -1,8 +1,8 @@
 package dev.doctor4t.trainmurdermystery.cca;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.registry.RegistryWrapper;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.world.World;
 import org.ladysnake.cca.api.v3.component.sync.AutoSyncedComponent;
 
@@ -13,10 +13,10 @@ public class WorldGameComponent implements AutoSyncedComponent {
     private final World world;
 
     private boolean running = false;
-    private List<ServerPlayerEntity> players = new ArrayList<>();
-    private List<ServerPlayerEntity> hitmen = new ArrayList<>();
-    private List<ServerPlayerEntity> detectives = new ArrayList<>();
-    private List<ServerPlayerEntity> targets = new ArrayList<>();
+    private List<PlayerEntity> players = new ArrayList<>();
+    private List<PlayerEntity> hitmen = new ArrayList<>();
+    private List<PlayerEntity> detectives = new ArrayList<>();
+    private List<PlayerEntity> targets = new ArrayList<>();
 
     public WorldGameComponent(World world) {
         this.world = world;
@@ -35,12 +35,12 @@ public class WorldGameComponent implements AutoSyncedComponent {
         return running;
     }
 
-    public void setPlayers(List<ServerPlayerEntity> players) {
+    public void setPlayers(List<PlayerEntity> players) {
         this.players = players;
         this.sync();
     }
 
-    public List<ServerPlayerEntity> getPlayers() {
+    public List<PlayerEntity> getPlayers() {
         return players;
     }
 
@@ -48,44 +48,44 @@ public class WorldGameComponent implements AutoSyncedComponent {
         return players.size();
     }
 
-    public List<ServerPlayerEntity> getHitmen() {
+    public List<PlayerEntity> getHitmen() {
         return hitmen;
     }
 
-    public void addHitman(ServerPlayerEntity hitman) {
+    public void addHitman(PlayerEntity hitman) {
         this.hitmen.add(hitman);
         this.sync();
     }
 
-    public void setHitmen(List<ServerPlayerEntity> hitmen) {
+    public void setHitmen(List<PlayerEntity> hitmen) {
         this.hitmen = hitmen;
         this.sync();
     }
 
-    public List<ServerPlayerEntity> getDetectives() {
+    public List<PlayerEntity> getDetectives() {
         return detectives;
     }
 
-    public void addDetective(ServerPlayerEntity detective) {
+    public void addDetective(PlayerEntity detective) {
         this.detectives.add(detective);
         this.sync();
     }
 
-    public void setDetectives(List<ServerPlayerEntity> detectives) {
+    public void setDetectives(List<PlayerEntity> detectives) {
         this.detectives = detectives;
         this.sync();
     }
 
-    public List<ServerPlayerEntity> getTargets() {
+    public List<PlayerEntity> getTargets() {
         return targets;
     }
 
-    public void addTarget(ServerPlayerEntity detective) {
+    public void addTarget(PlayerEntity detective) {
         this.targets.add(detective);
         this.sync();
     }
 
-    public void setTargets(List<ServerPlayerEntity> targets) {
+    public void setTargets(List<PlayerEntity> targets) {
         this.targets = targets;
         this.sync();
     }

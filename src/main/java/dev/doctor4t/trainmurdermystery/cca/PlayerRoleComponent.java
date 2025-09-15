@@ -40,16 +40,10 @@ public class PlayerRoleComponent implements AutoSyncedComponent {
         nbtCompound.putString("Role", role.name());
     }
 
-    public static enum Role {
+    public enum Role {
         NONE,
         PASSENGER,
         HITMAN,
-        DETECTIVE,
-        SCHEMER,
-        BODYGUARD;
-
-        public static Role getRandomRole() {
-            return Role.values()[1 + new Random().nextInt(Role.values().length -1 )];
-        }
+        DETECTIVE;
     }
 }

@@ -13,6 +13,7 @@
   },
   "client": [
     "client.EntityRendererDispatchMixin",
+    "client.MinecraftClientMixin",
     "client.items.BipedEntityModelMixin",
     "client.items.ClientPlayerEntityMixin",
     "client.restrictions.ChatHudMixin",

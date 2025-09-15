@@ -5,16 +5,17 @@ import dev.doctor4t.ratatouille.client.util.OptionLocker;
 import dev.doctor4t.ratatouille.client.util.ambience.AmbienceUtil;
 import dev.doctor4t.ratatouille.client.util.ambience.BackgroundAmbience;
 import dev.doctor4t.trainmurdermystery.TrainMurderMystery;
+import dev.doctor4t.trainmurdermystery.cca.PlayerRoleComponent;
 import dev.doctor4t.trainmurdermystery.cca.TrainMurderMysteryComponents;
 import dev.doctor4t.trainmurdermystery.client.model.TrainMurderMysteryEntityModelLayers;
 import dev.doctor4t.trainmurdermystery.client.render.block_entity.SmallDoorBlockEntityRenderer;
-import dev.doctor4t.trainmurdermystery.client.render.entity.PlayerBodyEntityRenderer;
 import dev.doctor4t.trainmurdermystery.client.util.TMMItemTooltips;
 import dev.doctor4t.trainmurdermystery.index.*;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.blockrenderlayer.v1.BlockRenderLayerMap;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
 import net.fabricmc.fabric.api.client.model.loading.v1.ModelLoadingPlugin;
 import net.fabricmc.fabric.api.client.rendering.v1.EntityRendererRegistry;
 import net.minecraft.block.Block;
@@ -22,14 +23,17 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.network.PlayerListEntry;
+import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRendererFactories;
 import net.minecraft.client.render.entity.EmptyEntityRenderer;
 import net.minecraft.client.render.model.UnbakedModel;
+import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.HashSet;
 import java.util.Map;
@@ -38,8 +42,11 @@ import java.util.UUID;
 
 public class TrainMurderMysteryClient implements ClientModInitializer {
     private static float trainSpeed;
+    private static boolean isHitman;
 
     public static final Map<UUID, PlayerListEntry> PLAYER_ENTRIES_CACHE = Maps.<UUID, PlayerListEntry>newHashMap();
+
+    public static KeyBinding instinctKeybind;
 
     public static boolean shouldDisableHudAndDebug() {
         MinecraftClient client = MinecraftClient.getInstance();
@@ -116,6 +123,7 @@ public class TrainMurderMysteryClient implements ClientModInitializer {
         // Caching components
         ClientTickEvents.START_WORLD_TICK.register(clientWorld -> {
             trainSpeed = TrainMurderMysteryComponents.TRAIN.get(clientWorld).getTrainSpeed();
+            isHitman = TrainMurderMysteryComponents.ROLE.get(MinecraftClient.getInstance().player).getRole() == PlayerRoleComponent.Role.HITMAN;
         });
 
         // Lock options
@@ -133,6 +141,14 @@ public class TrainMurderMysteryClient implements ClientModInitializer {
                 }
             }
         });
+
+        // Instinct keybind
+        instinctKeybind = KeyBindingHelper.registerKeyBinding(new KeyBinding(
+                "key."+TrainMurderMystery.MOD_ID+".instinct",
+                InputUtil.Type.KEYSYM,
+                GLFW.GLFW_KEY_LEFT_ALT,
+                "category."+TrainMurderMystery.MOD_ID+".keybinds"
+        ));
     }
 
     public static boolean isSkyVisibleAdjacent(ClientPlayerEntity player) {
@@ -214,5 +230,9 @@ public class TrainMurderMysteryClient implements ClientModInitializer {
 
     public static boolean shouldRestrictPlayerOptions() {
         return TrainMurderMystery.shouldRestrictPlayerOptions(MinecraftClient.getInstance().player);
+    }
+
+    public static boolean isHitman() {
+        return isHitman;
     }
 }

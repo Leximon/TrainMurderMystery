@@ -25,6 +25,7 @@ public interface TrainMurderMysteryItems {
     Item LOCKPICK = registrar.create("lockpick", new LockpickItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
     Item KNIFE = registrar.create("knife", new KnifeItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
     Item REVOLVER = registrar.create("revolver", new RevolverItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
+    Item INSTRUCTIONS = registrar.create("instructions", new RevolverItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
 
     static void initialize() {
         registrar.registerEntries();
