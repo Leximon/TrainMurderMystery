@@ -198,14 +198,13 @@ public class TrainMurderMysteryLangGen extends FabricLanguageProvider {
         builder.add(TrainMurderMysteryItems.LOCKPICK, "Lockpick");
         builder.add(TrainMurderMysteryItems.KNIFE, "Knife");
         builder.add(TrainMurderMysteryItems.REVOLVER, "Revolver");
+        builder.add(TrainMurderMysteryItems.LETTER, "Letter");
+        builder.add(TrainMurderMysteryItems.LETTER.getTranslationKey() + ".instructions", "Instructions");
 
         builder.add("itemGroup.trainmurdermystery.building", "TrainMurderMystery: Building Blocks");
         builder.add("itemGroup.trainmurdermystery.decoration", "TrainMurderMystery: Decoration & Functional");
         builder.add("itemGroup.trainmurdermystery.equipment", "TrainMurderMystery: Equipment");
-        builder.add("category.trainmurdermystery", "Reach For The Stars");
-        builder.add("key.trainmurdermystery.spaceshipRoll", "Roll Spaceship");
-        builder.add("key.trainmurdermystery.spaceshipDismount", "Dismount Spaceship");
-        builder.add("key.trainmurdermystery.toggleFlashlight", "Toggle Flashlight");
+
         builder.add("container.cargo_box", "Cargo Box");
         builder.add("container.cabinet", "Cabinet");
         builder.add("subtitles.block.cargo_box.close", "Cargo Box closes");
@@ -222,6 +221,12 @@ public class TrainMurderMysteryLangGen extends FabricLanguageProvider {
         builder.add("tip.knife.tooltip3", "Attack to knock back / push a player (no cooldown)");
         builder.add("tip.lockpick.tooltip1", "Use on any locked door to open it (no cooldown)");
         builder.add("tip.lockpick.tooltip2", "Sneak-use on a door to jam it for 1 minute (disables the lockpick for 5 minutes)");
+
+        builder.add("tip.letter.hitman.tooltip1", "Thank you for taking this job. Please eliminate the following targets:");
+        builder.add("tip.letter.hitman.tooltip.target", "- %s");
+        builder.add("tip.letter.hitman.tooltip2", "Please do so with the utmost discretion and do not get caught. Good luck.");
+        builder.add("tip.letter.hitman.tooltip3", "");
+        builder.add("tip.letter.hitman.tooltip4", "P.S.: Don't forget to use your instinct [Left Alt] and use the train's exterior to relocate.");
 
         builder.add("game.win.hitmen", "All targets were eliminated: The Hitmen win!");
         builder.add("game.win.passengers", "All hitmen were eliminated: The Passengers win!");

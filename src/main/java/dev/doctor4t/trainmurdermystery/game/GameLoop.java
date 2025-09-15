@@ -1,6 +1,5 @@
 package dev.doctor4t.trainmurdermystery.game;
 
-import dev.doctor4t.trainmurdermystery.cca.PlayerRoleComponent;
 import dev.doctor4t.trainmurdermystery.cca.TrainMurderMysteryComponents;
 import dev.doctor4t.trainmurdermystery.cca.WorldGameComponent;
 import dev.doctor4t.trainmurdermystery.index.TrainMurderMysteryItems;
@@ -15,19 +14,17 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.world.GameMode;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Locale;
+import java.util.*;
 
 public class GameLoop {
     public static void tick(ServerWorld serverWorld) {
         WorldGameComponent game = TrainMurderMysteryComponents.GAME.get(serverWorld);
+
         if (game.isRunning()) {
             // check hitman win condition (all targets are dead)
             WinStatus winStatus = WinStatus.HITMEN;
-            for (PlayerEntity player : game.getTargets()) {
-                if (!isPlayerEliminated(serverWorld, (ServerPlayerEntity) player)) {
+            for (UUID player : game.getTargets()) {
+                if (!isPlayerEliminated(serverWorld.getPlayerByUuid(player))) {
                     winStatus = WinStatus.NONE;
                 }
             }
@@ -35,8 +32,8 @@ public class GameLoop {
             // check passenger win condition (all hitmen are dead)
             if (winStatus == WinStatus.NONE) {
                 winStatus = WinStatus.PASSENGERS;
-                for (PlayerEntity player : game.getHitmen()) {
-                    if (!isPlayerEliminated(serverWorld, (ServerPlayerEntity) player)) {
+                for (UUID player : game.getHitmen()) {
+                    if (!isPlayerEliminated(serverWorld.getPlayerByUuid(player))) {
                         winStatus = WinStatus.NONE;
                     }
                 }
@@ -46,9 +43,8 @@ public class GameLoop {
             if (winStatus != WinStatus.NONE) {
                 for (ServerPlayerEntity player : serverWorld.getPlayers()) {
                     player.sendMessage(Text.translatable("game.win." + winStatus.name().toLowerCase(Locale.ROOT)), true);
-                    System.out.println("game.win." + winStatus.name().toLowerCase(Locale.ROOT));
                 }
-                game.setRunning(false);
+                game.stop();
             }
         }
     }
@@ -56,10 +52,6 @@ public class GameLoop {
     public static void startGame(ServerWorld world) {
         TrainMurderMysteryComponents.TRAIN.get(world).setTrainSpeed(130);
         WorldGameComponent gameComponent = TrainMurderMysteryComponents.GAME.get(world);
-
-        for (ServerPlayerEntity player : world.getPlayers()) {
-            TrainMurderMysteryComponents.ROLE.get(player).setRole(PlayerRoleComponent.Role.NONE);
-        }
 
         List<ServerPlayerEntity> playerPool = new ArrayList<>(world.getPlayers().stream().filter(serverPlayerEntity -> !serverPlayerEntity.isInCreativeMode() && !serverPlayerEntity.isSpectator()).toList());
 
@@ -75,7 +67,6 @@ public class GameLoop {
         // clear items, clear previous game data
         for (ServerPlayerEntity serverPlayerEntity : rolePlayerPool) {
             serverPlayerEntity.getInventory().clear();
-            TrainMurderMysteryComponents.ROLE.get(serverPlayerEntity).setRole(PlayerRoleComponent.Role.PASSENGER);
         }
         gameComponent.resetLists();
 
@@ -87,8 +78,12 @@ public class GameLoop {
             rolePlayerPool.removeFirst();
             player.giveItemStack(new ItemStack(TrainMurderMysteryItems.KNIFE));
             player.giveItemStack(new ItemStack(TrainMurderMysteryItems.LOCKPICK));
+
+            ItemStack letter = new ItemStack(TrainMurderMysteryItems.LETTER);
+            letter.set(DataComponentTypes.ITEM_NAME, Text.translatable(letter.getTranslationKey() + ".instructions"));
+            player.giveItemStack(letter);
+
             gameComponent.addHitman(player);
-            TrainMurderMysteryComponents.ROLE.get(player).setRole(PlayerRoleComponent.Role.HITMAN);
         }
 
         // select detectives
@@ -99,7 +94,6 @@ public class GameLoop {
             rolePlayerPool.removeFirst();
             player.giveItemStack(new ItemStack(TrainMurderMysteryItems.REVOLVER));
             gameComponent.addDetective(player);
-            TrainMurderMysteryComponents.ROLE.get(player).setRole(PlayerRoleComponent.Role.DETECTIVE);
         }
 
         // select targets
@@ -121,10 +115,10 @@ public class GameLoop {
             playerPool.get(i).giveItemStack(itemStack);
         }
 
-        gameComponent.setRunning(true);
+        gameComponent.start();
     }
 
-    private static boolean isPlayerEliminated(ServerWorld world, ServerPlayerEntity player) {
+    public static boolean isPlayerEliminated(PlayerEntity player) {
         return player == null || !player.isAlive() || player.isCreative() || player.isSpectator();
     }
 

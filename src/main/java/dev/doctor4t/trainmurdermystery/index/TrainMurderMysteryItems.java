@@ -2,12 +2,14 @@ package dev.doctor4t.trainmurdermystery.index;
 
 import dev.doctor4t.ratatouille.util.registrar.ItemRegistrar;
 import dev.doctor4t.trainmurdermystery.TrainMurderMystery;
+import dev.doctor4t.trainmurdermystery.item.KeyItem;
 import dev.doctor4t.trainmurdermystery.item.KnifeItem;
 import dev.doctor4t.trainmurdermystery.item.LockpickItem;
 import dev.doctor4t.trainmurdermystery.item.RevolverItem;
-import dev.doctor4t.trainmurdermystery.item.KeyItem;
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
@@ -25,7 +27,7 @@ public interface TrainMurderMysteryItems {
     Item LOCKPICK = registrar.create("lockpick", new LockpickItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
     Item KNIFE = registrar.create("knife", new KnifeItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
     Item REVOLVER = registrar.create("revolver", new RevolverItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
-    Item INSTRUCTIONS = registrar.create("instructions", new RevolverItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
+    Item LETTER = registrar.create("letter", new RevolverItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
 
     static void initialize() {
         registrar.registerEntries();

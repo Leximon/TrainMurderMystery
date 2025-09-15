@@ -60,7 +60,7 @@ public abstract class PlayerEntityMixin extends LivingEntity {
 
     @WrapMethod(method = "attack")
     public void attack(Entity target, Operation<Void> original) {
-        if (this.getMainHandStack().isOf(TrainMurderMysteryItems.KNIFE)) {
+        if (!TrainMurderMystery.shouldRestrictPlayerOptions((PlayerEntity) (Object)this) || this.getMainHandStack().isOf(TrainMurderMysteryItems.KNIFE)) {
             original.call(target);
         }
     }

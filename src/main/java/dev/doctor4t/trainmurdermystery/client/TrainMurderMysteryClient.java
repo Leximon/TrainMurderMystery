@@ -5,8 +5,8 @@ import dev.doctor4t.ratatouille.client.util.OptionLocker;
 import dev.doctor4t.ratatouille.client.util.ambience.AmbienceUtil;
 import dev.doctor4t.ratatouille.client.util.ambience.BackgroundAmbience;
 import dev.doctor4t.trainmurdermystery.TrainMurderMystery;
-import dev.doctor4t.trainmurdermystery.cca.PlayerRoleComponent;
 import dev.doctor4t.trainmurdermystery.cca.TrainMurderMysteryComponents;
+import dev.doctor4t.trainmurdermystery.cca.WorldGameComponent;
 import dev.doctor4t.trainmurdermystery.client.model.TrainMurderMysteryEntityModelLayers;
 import dev.doctor4t.trainmurdermystery.client.render.block_entity.SmallDoorBlockEntityRenderer;
 import dev.doctor4t.trainmurdermystery.client.util.TMMItemTooltips;
@@ -30,21 +30,19 @@ import net.minecraft.client.render.entity.EmptyEntityRenderer;
 import net.minecraft.client.render.model.UnbakedModel;
 import net.minecraft.client.util.InputUtil;
 import net.minecraft.client.util.ModelIdentifier;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.registry.Registries;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import org.lwjgl.glfw.GLFW;
 
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class TrainMurderMysteryClient implements ClientModInitializer {
     private static float trainSpeed;
-    private static boolean isHitman;
+    private static WorldGameComponent GAME_COMPONENT;
 
-    public static final Map<UUID, PlayerListEntry> PLAYER_ENTRIES_CACHE = Maps.<UUID, PlayerListEntry>newHashMap();
+    public static final Map<UUID, PlayerListEntry> PLAYER_ENTRIES_CACHE = Maps.newHashMap();
 
     public static KeyBinding instinctKeybind;
 
@@ -123,7 +121,7 @@ public class TrainMurderMysteryClient implements ClientModInitializer {
         // Caching components
         ClientTickEvents.START_WORLD_TICK.register(clientWorld -> {
             trainSpeed = TrainMurderMysteryComponents.TRAIN.get(clientWorld).getTrainSpeed();
-            isHitman = TrainMurderMysteryComponents.ROLE.get(MinecraftClient.getInstance().player).getRole() == PlayerRoleComponent.Role.HITMAN;
+            GAME_COMPONENT = TrainMurderMysteryComponents.GAME.get(clientWorld);
         });
 
         // Lock options
@@ -233,6 +231,18 @@ public class TrainMurderMysteryClient implements ClientModInitializer {
     }
 
     public static boolean isHitman() {
-        return isHitman;
+        return GAME_COMPONENT.getHitmen().contains(MinecraftClient.getInstance().player.getUuid());
+    }
+
+    public static boolean isDetective() {
+        return GAME_COMPONENT.getDetectives().contains(MinecraftClient.getInstance().player.getUuid());
+    }
+
+    public static boolean isPassenger() {
+        return !isHitman() && !isDetective();
+    }
+
+    public static List<UUID> getTargets() {
+        return GAME_COMPONENT.getTargets();
     }
 }
