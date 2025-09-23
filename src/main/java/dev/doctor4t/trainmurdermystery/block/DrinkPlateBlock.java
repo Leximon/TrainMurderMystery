@@ -111,7 +111,7 @@ public class DrinkPlateBlock extends BlockWithEntity {
             }
 
             if (!hasPlatterItem) {
-                ItemStack randomItem = platter.get(world.random.nextInt(platter.size()));
+                ItemStack randomItem = platter.get(world.random.nextInt(platter.size())).copy();
                 if (blockEntity.getPoisonedItemsCount() > 0) {
                     randomItem.set(TMMDataComponentTypes.POISONED, true);
                     blockEntity.setPoisonedItemsCount(blockEntity.getPoisonedItemsCount() - 1);

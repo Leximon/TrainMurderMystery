@@ -1,6 +1,8 @@
 package dev.doctor4t.trainmurdermystery.block_entity;
 
+import dev.doctor4t.trainmurdermystery.client.TMMClient;
 import dev.doctor4t.trainmurdermystery.index.TMMBlockEntities;
+import dev.doctor4t.trainmurdermystery.index.TMMParticles;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -29,24 +31,16 @@ public class PlateBlockEntity extends BlockEntity {
         if (stack.isEmpty()) return;
 
         storedItems.add(stack.copy());
-        markDirty();
-        if (world != null && !world.isClient) {
-            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
-        }
+        sync();
     }
 
     private int poisonedItemsCount = 0;
-
     public int getPoisonedItemsCount() {
         return poisonedItemsCount;
     }
-
     public void setPoisonedItemsCount(int poisonedItemsCount) {
         this.poisonedItemsCount = poisonedItemsCount;
-        markDirty();
-        if (world != null && !world.isClient) {
-            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
-        }
+        sync();
     }
 
     public PlateBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
@@ -59,16 +53,16 @@ public class PlateBlockEntity extends BlockEntity {
 
     public static <T extends BlockEntity> void clientTick(World world, BlockPos pos, BlockState state, T t) {
         PlateBlockEntity entity = (PlateBlockEntity) t;
-        //if (!TMMClient.isHitman()) return;
+        if (!TMMClient.isHitman()) return;
         if (entity.getPoisonedItemsCount() == 0 || entity.getStoredItems().isEmpty()) return;
         if (Random.createThreadSafe().nextBetween(0, 20) < 17) return;
 
         world.addParticle(
-                ParticleTypes.RAID_OMEN,
+                TMMParticles.POISON,
                 pos.getX() + 0.5f,
                 pos.getY(),
                 pos.getZ() + 0.5f,
-                0f, -0.75f, 0f
+                0f, 0.05f, 0f
         );
     }
 
@@ -100,6 +94,13 @@ public class PlateBlockEntity extends BlockEntity {
         }
 
         this.poisonedItemsCount = nbt.getInt("poisonedItemsCount");
+    }
+
+    private void sync() {
+        if (world != null && !world.isClient) {
+            markDirty();
+            world.updateListeners(pos, getCachedState(), getCachedState(), 3);
+        }
     }
 
     @Override
