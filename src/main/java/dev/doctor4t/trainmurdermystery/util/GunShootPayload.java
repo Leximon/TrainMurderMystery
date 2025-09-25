@@ -34,7 +34,7 @@ public record GunShootPayload(int target) implements CustomPayload {
 			if (!player.getMainHandStack().isOf(TMMItems.REVOLVER)) return;
 			if (player.getServerWorld().getEntityById(payload.target()) instanceof PlayerEntity target && target.distanceTo(player) < 65.0) {
 				var game = TMMComponents.GAME.get(player.getWorld());
-				if (game.isCivilian(target) && game.isCivilian(player) && !player.isCreative()) {
+				if (game.isCivilian(target) && !player.isCreative()) {
 					PlayerMoodComponent.KEY.get(player).setMood(0);
 					Scheduler.schedule(() -> {
 						player.getInventory().remove((s) -> s.isOf(TMMItems.REVOLVER), 1, player.getInventory());

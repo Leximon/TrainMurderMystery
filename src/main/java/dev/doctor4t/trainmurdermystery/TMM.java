@@ -104,15 +104,17 @@ public class TMM implements ModInitializer {
 //              but then can't people force the hitman to try and pick up the gun to see if they are one? No I'll explain why later
 // TORECORD: Revolver also has a really nice indicator if you are going to hit your target
 // TORECORD: Make the detective drop the gun on killed (that the hitman cannot pick up, to prevent soft locking)
+// TORECORD: Also removed cooldown in creative LMAO
 // done: Remove body bags so make player corpses turn into skeletons after some time (since the detective role is no longer really a role and depends on who carries the gun, it's hard to keep the body bag item)
 
 // TORECORD: Fixing the hitman
 // TORECORD: Mood system shows up for the hitman as well, custom mood icon indicating no effect, but here to suggest how to play along and fake tasks
 // TORECORD: Remove target system and make the win condition a kill count, turning him into a psycho
 // TORECORD: New name display shows "psycho cohort" for other psychos, and instinct now shows other psychos instead of targets, game recognizes game, allowing them to scheme together
-// TORECORD: Fixing the knife (now with a kill indicator)
-// TORECORD: Hitman item shop
-// TODO: - Explosive for clumped up people (foils the grouping up cheese)
+// TORECORD: You'll notice the killer doesn't start with the knife or the lockpick, because ITEM SHOP. Idea is we're gonna give the killer a bunch of tools and you are free to play how you want! And there's gonna be a lot of options
+// TORECORD: - Fixing the knife (now with a kill indicator)
+// TODO: - Grenade for clumped up people (foils the grouping up cheese)
+//              Does not kill the hitman (idk they have shrapnel body armor or something)
 // TORECORD: - Poison (poisons the next food or drink item)
 // TORECORD: - Scorpion (poisons the next person sleeping in the bed)
 // TORECORD: Getting food poisoned and then scorpion poisoned lowers the timer
