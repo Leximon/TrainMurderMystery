@@ -82,10 +82,12 @@ public class TrainMurderMysteryLangGen extends FabricLanguageProvider {
         builder.add("key.trainmurdermystery.instinct", "Instinct");
         builder.add("category.trainmurdermystery.keybinds", "Train Murder Mystery");
 
-        builder.add("task.sleep", "You feel like getting some sleep.");
-        builder.add("task.outside", "You feel like getting some fresh air.");
-        builder.add("task.drink", "You feel like getting a drink.");
-        builder.add("task.eat", "You feel like getting a snack.");
+        builder.add("task.feel", "You feel like ");
+        builder.add("task.fake", "You could fake ");
+        builder.add("task.sleep", "getting some sleep.");
+        builder.add("task.outside", "getting some fresh air.");
+        builder.add("task.drink", "getting a drink.");
+        builder.add("task.eat", "getting a snack.");
         builder.add("game.player.stung", "You feel something stinging you in your sleep.");
         builder.add("game.psycho_mode.time", "Psycho Mode: %s");
         builder.add("game.psycho_mode.over", "Psycho Mode Over!");

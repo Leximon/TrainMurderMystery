@@ -118,7 +118,7 @@ public class TMM implements ModInitializer {
 // TORECORD: - Poison (poisons the next food or drink item)
 // TORECORD: - Scorpion (poisons the next person sleeping in the bed)
 // TORECORD: Getting food poisoned and then scorpion poisoned lowers the timer
-// TODO: - Gun
+// TORECORD: - Gun
 //          allows the hitman to potentially pass as a detective / passenger with a gun on top of giving a ranged option
 //          double edged sword because just like for other passengers, you drop it when you shoot an innocent, which means that there is now one more gun in circulation people can use against you
 //          counter to people trying to make you pick up the gun and confirm you are the hitman because remember you can't pick it up if you already have a revolver
@@ -135,7 +135,7 @@ public class TMM implements ModInitializer {
 // TORECORD: Fixing the map
 // TODO: Rearrange the train cars to prevent all POIs being separated by all the sleeping cars
 // TODO: Add light barrier blocks to the whole train
-// TODO: Add barrier panel blocks to the lobby
+// TORECORD: Add barrier panel blocks to the lobby
 
 // TORECORD: Polish
 // TODO: Train chimney smoke + ringable horn, triggers game start in lobby and end of game

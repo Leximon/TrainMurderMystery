@@ -25,6 +25,7 @@ public class MoodRenderer {
     public static final Identifier MOOD_HAPPY = TMM.id("hud/mood_happy");
     public static final Identifier MOOD_MID = TMM.id("hud/mood_mid");
     public static final Identifier MOOD_DEPRESSIVE = TMM.id("hud/mood_depressive");
+    public static final Identifier MOOD_KILLER = TMM.id("hud/mood_killer");
     private static final Map<PlayerMoodComponent.Task, TaskRenderer> renderers = new HashMap<>();
     public static float arrowProgress = 1f;
     public static float moodRender = 0f;
@@ -79,23 +80,29 @@ public class MoodRenderer {
         context.getMatrices().push();
         context.getMatrices().translate(0, 3 * moodOffset, 0);
         var mood = MOOD_HAPPY;
-        if (moodRender < 0.2f) {
-            mood = MOOD_DEPRESSIVE;
-        } else if (moodRender < 0.55f) {
-            mood = MOOD_MID;
-        }
-        if (arrowProgress < 0.1f) {
-            if (oldMood >= 0.2f && moodRender < 0.2f) {
-                arrowProgress = -1f;
-            } else if (oldMood >= 0.55f && moodRender < 0.55f) {
-                arrowProgress = -1f;
+
+        boolean hitman = TMMComponents.GAME.get(player.getWorld()).isHitman(player);
+        if (hitman) {
+            mood = MOOD_KILLER;
+        } else {
+            if (moodRender < 0.2f) {
+                mood = MOOD_DEPRESSIVE;
+            } else if (moodRender < 0.55f) {
+                mood = MOOD_MID;
+            }
+            if (arrowProgress < 0.1f) {
+                if (oldMood >= 0.2f && moodRender < 0.2f) {
+                    arrowProgress = -1f;
+                } else if (oldMood >= 0.55f && moodRender < 0.55f) {
+                    arrowProgress = -1f;
+                }
             }
         }
 
         context.drawGuiTexture(mood, 5, 6, 14, 17);
         arrowProgress = MathHelper.lerp(tickCounter.getTickDelta(true) / 24, arrowProgress, 0f);
 
-        if (Math.abs(arrowProgress) > 0.01f) {
+        if (Math.abs(arrowProgress) > 0.01f && !hitman) {
             var up = arrowProgress > 0;
             var arrow = up ? ARROW_UP : ARROW_DOWN;
             context.getMatrices().push();
@@ -123,7 +130,7 @@ public class MoodRenderer {
         public Text text = Text.empty();
 
         public boolean tick(PlayerMoodComponent.TrainTask present, float delta) {
-            if (present != null) this.text = Text.translatable("task."+present.getName());
+            if (present != null) this.text = Text.translatable("task." + (TMMClient.isHitman() ? "fake" : "feel")).append(Text.translatable("task."+present.getName()));
             this.present = present != null;
             this.alpha = MathHelper.lerp(delta / 16, this.alpha, present != null ? 1f : 0f);
             this.offset = MathHelper.lerp(delta / 32, this.offset, this.index);
