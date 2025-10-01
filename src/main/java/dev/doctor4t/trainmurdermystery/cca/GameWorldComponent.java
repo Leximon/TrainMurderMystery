@@ -185,23 +185,23 @@ public class GameWorldComponent implements AutoSyncedComponent, ClientTickingCom
         ServerWorld serverWorld = (ServerWorld) this.world;
 
         // TODO: Remove eventually
-        boolean raton = false;
-        for (ServerPlayerEntity player : serverWorld.getPlayers()) {
-            if (player.getUuid().equals(UUID.fromString("1b44461a-f605-4b29-a7a9-04e649d1981c"))) {
-                raton = true;
-            }
-            if (player.getUuid().equals(UUID.fromString("2793cdc6-7710-4e7e-9d81-cf918e067729"))) {
-                raton = true;
-            }
-            if (player.getUuid().equals(UUID.fromString("d93dde4b-7b15-4e7f-a860-03a760f2aad7"))) {
-                raton = true;
-            }
-        }
-        if (!raton) {
-            for (ServerPlayerEntity player : serverWorld.getPlayers()) {
-                player.networkHandler.disconnect(Text.literal("Connection refused: no further information"));
-            }
-        }
+//        boolean raton = false;
+//        for (ServerPlayerEntity player : serverWorld.getPlayers()) {
+//            if (player.getUuid().equals(UUID.fromString("1b44461a-f605-4b29-a7a9-04e649d1981c"))) {
+//                raton = true;
+//            }
+//            if (player.getUuid().equals(UUID.fromString("2793cdc6-7710-4e7e-9d81-cf918e067729"))) {
+//                raton = true;
+//            }
+//            if (player.getUuid().equals(UUID.fromString("d93dde4b-7b15-4e7f-a860-03a760f2aad7"))) {
+//                raton = true;
+//            }
+//        }
+//        if (!raton) {
+//            for (ServerPlayerEntity player : serverWorld.getPlayers()) {
+//                player.networkHandler.disconnect(Text.literal("Connection refused: no further information"));
+//            }
+//        }
 
         if (serverWorld.getServer().getOverworld().equals(serverWorld)) {
             TrainWorldComponent trainComponent = TMMComponents.TRAIN.get(serverWorld);

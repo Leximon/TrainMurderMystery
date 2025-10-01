@@ -54,6 +54,17 @@ public class PlayerBodyEntityRenderer<T extends LivingEntity, M extends EntityMo
         renderSkeleton(playerBodyEntity, f, g, matrixStack, vertexConsumerProvider, light, TMMClient.moodComponent.isLowerThanDepressed() ? 0f : 1f);
     }
 
+    @Override
+    protected @Nullable RenderLayer getRenderLayer(PlayerBodyEntity entity, boolean showBody, boolean translucent, boolean showOutline) {
+        Identifier identifier = this.getTexture(entity);
+        if (translucent) {
+            return RenderLayer.getItemEntityTranslucentCull(identifier);
+        } else if (showBody) {
+            return this.model.getLayer(identifier);
+        } else {
+            return null;
+        }
+    }
 
     public void renderBody(PlayerBodyEntity livingEntity, float f, float g, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int light, float alpha) {
         boolean bl = this.isVisible(livingEntity);

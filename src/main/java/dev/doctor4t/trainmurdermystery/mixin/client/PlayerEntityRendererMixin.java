@@ -26,16 +26,18 @@ public class PlayerEntityRendererMixin {
     }
 
     @ModifyExpressionValue(method = "getArmPose", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/network/AbstractClientPlayerEntity;getStackInHand(Lnet/minecraft/util/Hand;)Lnet/minecraft/item/ItemStack;"))
-    private static ItemStack tmm$changeNoteAndPsychosisItemsArmPos(ItemStack original, AbstractClientPlayerEntity player) {
-        if (original.isOf(TMMItems.NOTE)) {
-            return ItemStack.EMPTY;
-        }
+    private static ItemStack tmm$changeNoteAndPsychosisItemsArmPos(ItemStack original, AbstractClientPlayerEntity player, Hand hand) {
+        if (hand.equals(Hand.MAIN_HAND)) {
+            if (original.isOf(TMMItems.NOTE)) {
+                return ItemStack.EMPTY;
+            }
 
-        if (TMMClient.moodComponent != null && TMMClient.moodComponent.isLowerThanMid()) { // make sure it's only the main hand item that's being replaced
-            HashMap<UUID, ItemStack> psychosisItems = TMMClient.moodComponent.getPsychosisItems();
-            UUID uuid = player.getUuid();
-            if (psychosisItems.containsKey(uuid)) {
-                return psychosisItems.get(uuid);
+            if (TMMClient.moodComponent != null && TMMClient.moodComponent.isLowerThanMid()) { // make sure it's only the main hand item that's being replaced
+                HashMap<UUID, ItemStack> psychosisItems = TMMClient.moodComponent.getPsychosisItems();
+                UUID uuid = player.getUuid();
+                if (psychosisItems.containsKey(uuid)) {
+                    return psychosisItems.get(uuid);
+                }
             }
         }
 

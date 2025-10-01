@@ -155,7 +155,7 @@ public class GameFunctions {
         GameTimeComponent.KEY.get(world).reset();
 
         var roleSelector = ScoreboardRoleSelectorComponent.KEY.get(world.getScoreboard());
-        var killerCount = (int) Math.floor(playerPool.size() / 6f);
+        var killerCount = (int) Math.floor(playerPool.size() * .2f);
         roleSelector.assignKillers(world, gameComponent, playerPool, killerCount);
         roleSelector.assignVigilantes(world, gameComponent, playerPool, killerCount);
 
