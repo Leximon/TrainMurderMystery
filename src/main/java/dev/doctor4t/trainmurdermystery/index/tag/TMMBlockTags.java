@@ -5,7 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.registry.tag.TagKey;
 
-public interface TrainMurderMysteryBlockTags {
+public interface TMMBlockTags {
 
     TagKey<Block> BRANCHES = create("branches");
     TagKey<Block> VENT_SHAFTS = create("vent_shafts");

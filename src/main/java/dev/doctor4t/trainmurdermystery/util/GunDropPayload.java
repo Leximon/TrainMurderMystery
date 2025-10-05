@@ -2,6 +2,7 @@ package dev.doctor4t.trainmurdermystery.util;
 
 import dev.doctor4t.trainmurdermystery.TMM;
 import dev.doctor4t.trainmurdermystery.index.TMMItems;
+import dev.doctor4t.trainmurdermystery.index.tag.TMMItemTags;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
@@ -23,7 +24,7 @@ public record GunDropPayload() implements CustomPayload {
     public static class Receiver implements ClientPlayNetworking.PlayPayloadHandler<GunDropPayload> {
         @Override
         public void receive(@NotNull GunDropPayload payload, ClientPlayNetworking.@NotNull Context context) {
-            context.player().getInventory().remove((s) -> s.isOf(TMMItems.REVOLVER), 1, context.player().getInventory());
+            context.player().getInventory().remove((s) -> s.isIn(TMMItemTags.GUNS), 1, context.player().getInventory());
         }
     }
 }

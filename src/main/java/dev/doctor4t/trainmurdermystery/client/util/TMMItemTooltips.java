@@ -13,14 +13,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class TMMItemTooltips {
-    private static final int COOLDOWN_COLOR = 0xC90000;
-    private static final int LETTER_COLOR = 0xC5AE8B;
-    private static final int REGULAR_TOOLTIP_COLOR = 0x808080;
+    public static final int COOLDOWN_COLOR = 0xC90000;
+    public static final int LETTER_COLOR = 0xC5AE8B;
+    public static final int REGULAR_TOOLTIP_COLOR = 0x808080;
 
     public static void addTooltips() {
         ItemTooltipCallback.EVENT.register((itemStack, tooltipContext, tooltipType, tooltipList) -> {
             addTooltipForItem(TMMItems.KNIFE, itemStack, tooltipList);
             addTooltipForItem(TMMItems.REVOLVER, itemStack, tooltipList);
+            addTooltipForItem(TMMItems.DERRINGER, itemStack, tooltipList);
             addTooltipForItem(TMMItems.GRENADE, itemStack, tooltipList);
             addTooltipForItem(TMMItems.PSYCHO_MODE, itemStack, tooltipList);
             addTooltipForItem(TMMItems.POISON_VIAL, itemStack, tooltipList);
@@ -34,6 +35,7 @@ public class TMMItemTooltips {
 
             addCooldownText(TMMItems.KNIFE, tooltipList, itemStack);
             addCooldownText(TMMItems.REVOLVER, tooltipList, itemStack);
+            addCooldownText(TMMItems.DERRINGER, tooltipList, itemStack);
             addCooldownText(TMMItems.GRENADE, tooltipList, itemStack);
             addCooldownText(TMMItems.LOCKPICK, tooltipList, itemStack);
             addCooldownText(TMMItems.CROWBAR, tooltipList, itemStack);

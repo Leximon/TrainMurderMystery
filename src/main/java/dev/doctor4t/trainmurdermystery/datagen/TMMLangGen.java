@@ -11,9 +11,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-public class TrainMurderMysteryLangGen extends FabricLanguageProvider {
+public class TMMLangGen extends FabricLanguageProvider {
 
-    public TrainMurderMysteryLangGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public TMMLangGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
     }
 
@@ -81,17 +81,19 @@ public class TrainMurderMysteryLangGen extends FabricLanguageProvider {
         builder.add("tip.door.requires_key", "This door is locked and requires a key to be opened.");
         builder.add("tip.door.requires_different_key", "This door is locked and requires a different key to be opened.");
         builder.add("tip.door.jammed", "This door is jammed and cannot be opened at the moment!");
+        builder.add("tip.derringer.used", "Used, cannot be shot anymore, get a bat kill for another chance!");
 
         builder.add("tip.cooldown", "On cooldown: %s");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.KNIFE) + ".tooltip", "Right-click, hold for a second and get close to your victim\nAfter a kill, cannot be used for 1 minute\nAttack to knock back / push a player (no cooldown)");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.REVOLVER) + ".tooltip", "Point, right-click and shoot\nDrops if you kill an innocent");
+        builder.add(TextUtils.getItemTranslationKey(TMMItems.DERRINGER) + ".tooltip", "Point, right-click and shoot\nCan only be shot once, so make it count!\nShot is replenished after a kill");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.GRENADE) + ".tooltip", "Right-click to throw, explodes on impact\nDoes not affect killers, good to clear groups of people\nSingle use, 5 minute cooldown");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.PSYCHO_MODE) + ".tooltip", "\"Do you like hurting other people?\"\nHides your identity and allows you to go crazy with a bat for 30 seconds\nBat kills on full swing and cannot be unselected for the duration of the ability\nActivated instantly upon purchase, 5 minute cooldown");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.POISON_VIAL) + ".tooltip", "Slip in food or drinks to poison the next pickup");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.FIRECRACKER) + ".tooltip", "Detonates 15 seconds after being placed on ground\nGood to simulate gunshots and lure people");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.SCORPION) + ".tooltip", "Slip in a bed to poison the next person looking for a rest");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.LOCKPICK) + ".tooltip", "Use on any locked door to open it (no cooldown)\nSneak-use on a door to jam it for 1 minute (3 minute cooldown)");
-        builder.add(TextUtils.getItemTranslationKey(TMMItems.CROWBAR) + ".tooltip", "Use on any door to open it permanently (3 minute cooldown)");
+        builder.add(TextUtils.getItemTranslationKey(TMMItems.CROWBAR) + ".tooltip", "Use on any door to open it permanently");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.BODY_BAG) + ".tooltip", "Use on a dead body to bag it up and remove it\nSingle use, 5 minute cooldown");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.BLACKOUT) + ".tooltip", "Turn off all lights aboard for 15 to 20 seconds\nUse your instinct [left-alt] to see your targets in the dark\nActivated instantly on purchase, 5 minute cooldown");
         builder.add(TextUtils.getItemTranslationKey(TMMItems.NOTE) + ".tooltip", "Write a message and pin it for others to see\nSneak-use to write a message, then use on a wall or floor to place\nInvisible in hand");

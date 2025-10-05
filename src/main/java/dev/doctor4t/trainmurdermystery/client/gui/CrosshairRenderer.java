@@ -4,6 +4,7 @@ import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import dev.doctor4t.trainmurdermystery.TMM;
 import dev.doctor4t.trainmurdermystery.index.TMMItems;
+import dev.doctor4t.trainmurdermystery.index.tag.TMMItemTags;
 import dev.doctor4t.trainmurdermystery.item.KnifeItem;
 import dev.doctor4t.trainmurdermystery.item.RevolverItem;
 import net.minecraft.client.MinecraftClient;
@@ -11,6 +12,7 @@ import net.minecraft.client.gui.DrawContext;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderTickCounter;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.hit.EntityHitResult;
 import org.jetbrains.annotations.NotNull;
@@ -33,9 +35,10 @@ public class CrosshairRenderer {
         context.getMatrices().translate(context.getScaledWindowWidth() / 2f, context.getScaledWindowHeight() / 2f, 0);
         RenderSystem.defaultBlendFunc();
         RenderSystem.disableBlend();
-        if (player.getMainHandStack().isOf(TMMItems.REVOLVER) && !player.getItemCooldownManager().isCoolingDown(TMMItems.REVOLVER) && RevolverItem.getGunTarget(player) instanceof EntityHitResult) {
+        ItemStack mainHandStack = player.getMainHandStack();
+        if (mainHandStack.isIn(TMMItemTags.GUNS) && !player.getItemCooldownManager().isCoolingDown(mainHandStack.getItem()) && RevolverItem.getGunTarget(player) instanceof EntityHitResult) {
             target = true;
-        } else if (player.getMainHandStack().isOf(TMMItems.KNIFE)) {
+        } else if (mainHandStack.isOf(TMMItems.KNIFE)) {
             var manager = player.getItemCooldownManager();
             if (!manager.isCoolingDown(TMMItems.KNIFE) && KnifeItem.getKnifeTarget(player) instanceof EntityHitResult) {
                 target = true;
@@ -45,7 +48,7 @@ public class CrosshairRenderer {
                 context.drawGuiTexture(KNIFE_BACKGROUND, -5, 5, 10, 7);
                 context.drawGuiTexture(KNIFE_PROGRESS, 10, 7, 0, 0, -5, 5, (int) (f * 10.0f), 7);
             }
-        } else if (player.getMainHandStack().isOf(TMMItems.BAT)) {
+        } else if (mainHandStack.isOf(TMMItems.BAT)) {
             if (player.getAttackCooldownProgress(tickCounter.getTickDelta(true)) >= 1f && client.crosshairTarget instanceof EntityHitResult result && result.getEntity() instanceof PlayerEntity) {
                 target = true;
                 context.drawGuiTexture(BAT_ATTACK, -5, 5, 10, 7);

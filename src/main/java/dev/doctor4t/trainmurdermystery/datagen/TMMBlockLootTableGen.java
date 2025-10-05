@@ -24,9 +24,9 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-public class TrainMurderMysteryBlockLootTableGen extends FabricBlockLootTableProvider {
+public class TMMBlockLootTableGen extends FabricBlockLootTableProvider {
 
-    public TrainMurderMysteryBlockLootTableGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
+    public TMMBlockLootTableGen(FabricDataOutput dataOutput, CompletableFuture<RegistryWrapper.WrapperLookup> registryLookup) {
         super(dataOutput, registryLookup);
     }
 

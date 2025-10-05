@@ -1,7 +1,7 @@
 package dev.doctor4t.trainmurdermystery.datagen;
 
 import dev.doctor4t.trainmurdermystery.index.TMMBlocks;
-import dev.doctor4t.trainmurdermystery.index.tag.TrainMurderMysteryBlockTags;
+import dev.doctor4t.trainmurdermystery.index.tag.TMMBlockTags;
 import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricTagProvider;
 import net.minecraft.registry.RegistryWrapper;
@@ -9,16 +9,16 @@ import net.minecraft.registry.tag.BlockTags;
 
 import java.util.concurrent.CompletableFuture;
 
-public class TrainMurderMysteryBlockTagGen extends FabricTagProvider.BlockTagProvider {
+public class TMMBlockTagGen extends FabricTagProvider.BlockTagProvider {
 
-    public TrainMurderMysteryBlockTagGen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
+    public TMMBlockTagGen(FabricDataOutput output, CompletableFuture<RegistryWrapper.WrapperLookup> registriesFuture) {
         super(output, registriesFuture);
     }
 
     @Override
     protected void configure(RegistryWrapper.WrapperLookup arg) {
 
-        this.getOrCreateTagBuilder(TrainMurderMysteryBlockTags.BRANCHES)
+        this.getOrCreateTagBuilder(TMMBlockTags.BRANCHES)
                 .add(TMMBlocks.STAINLESS_STEEL_BRANCH)
                 .add(TMMBlocks.DARK_STEEL_BRANCH)
                 .add(TMMBlocks.OAK_BRANCH)
@@ -44,27 +44,27 @@ public class TrainMurderMysteryBlockTagGen extends FabricTagProvider.BlockTagPro
                 .add(TMMBlocks.STRIPPED_CRIMSON_STIPE)
                 .add(TMMBlocks.STRIPPED_WARPED_STIPE);
 
-        this.getOrCreateTagBuilder(TrainMurderMysteryBlockTags.VENT_SHAFTS)
+        this.getOrCreateTagBuilder(TMMBlockTags.VENT_SHAFTS)
                 .add(TMMBlocks.STAINLESS_STEEL_VENT_SHAFT)
                 .add(TMMBlocks.DARK_STEEL_VENT_SHAFT)
                 .add(TMMBlocks.TARNISHED_GOLD_VENT_SHAFT);
 
-        this.getOrCreateTagBuilder(TrainMurderMysteryBlockTags.VENT_HATCHES)
+        this.getOrCreateTagBuilder(TMMBlockTags.VENT_HATCHES)
                 .add(TMMBlocks.STAINLESS_STEEL_VENT_HATCH)
                 .add(TMMBlocks.DARK_STEEL_VENT_HATCH)
                 .add(TMMBlocks.TARNISHED_GOLD_VENT_HATCH);
 
-        this.getOrCreateTagBuilder(TrainMurderMysteryBlockTags.WALKWAYS)
+        this.getOrCreateTagBuilder(TMMBlockTags.WALKWAYS)
                 .add(TMMBlocks.METAL_SHEET_WALKWAY)
                 .add(TMMBlocks.STAINLESS_STEEL_WALKWAY)
                 .add(TMMBlocks.DARK_STEEL_WALKWAY);
 
-        this.getOrCreateTagBuilder(TrainMurderMysteryBlockTags.SPRINKLERS)
+        this.getOrCreateTagBuilder(TMMBlockTags.SPRINKLERS)
                 .add(TMMBlocks.STAINLESS_STEEL_SPRINKLER)
                 .add(TMMBlocks.GOLD_SPRINKLER);
 
         this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
-                .addTag(TrainMurderMysteryBlockTags.WALKWAYS)
+                .addTag(TMMBlockTags.WALKWAYS)
                 .add(TMMBlocks.MAHOGANY_PANEL)
                 .add(TMMBlocks.BUBINGA_PANEL)
                 .add(TMMBlocks.EBONY_PANEL);
@@ -75,7 +75,7 @@ public class TrainMurderMysteryBlockTagGen extends FabricTagProvider.BlockTagPro
                 .add(TMMBlocks.EBONY_BOOKSHELF);
 
         this.getOrCreateTagBuilder(BlockTags.CLIMBABLE)
-                .addTag(TrainMurderMysteryBlockTags.VENT_SHAFTS)
+                .addTag(TMMBlockTags.VENT_SHAFTS)
                 .add(TMMBlocks.STAINLESS_STEEL_LADDER);
 
         this.getOrCreateTagBuilder(BlockTags.GUARDED_BY_PIGLINS)
@@ -189,7 +189,7 @@ public class TrainMurderMysteryBlockTagGen extends FabricTagProvider.BlockTagPro
                 .add(TMMBlocks.COCKPIT_DOOR);
 
         this.getOrCreateTagBuilder(BlockTags.AXE_MINEABLE)
-                .addTag(TrainMurderMysteryBlockTags.BRANCHES)
+                .addTag(TMMBlockTags.BRANCHES)
                 .add(TMMBlocks.MAHOGANY_HERRINGBONE)
                 .add(TMMBlocks.MAHOGANY_HERRINGBONE_STAIRS)
                 .add(TMMBlocks.MAHOGANY_HERRINGBONE_SLAB)
@@ -238,7 +238,7 @@ public class TrainMurderMysteryBlockTagGen extends FabricTagProvider.BlockTagPro
                 .add(TMMBlocks.EBONY_BOOKSHELF);
 
         this.getOrCreateTagBuilder(BlockTags.PICKAXE_MINEABLE)
-                .addTag(TrainMurderMysteryBlockTags.VENT_SHAFTS)
+                .addTag(TMMBlockTags.VENT_SHAFTS)
                 .add(TMMBlocks.STAINLESS_STEEL_VENT_HATCH)
                 .add(TMMBlocks.DARK_STEEL_VENT_HATCH)
                 .add(TMMBlocks.TARNISHED_GOLD_VENT_HATCH)
@@ -308,7 +308,7 @@ public class TrainMurderMysteryBlockTagGen extends FabricTagProvider.BlockTagPro
                 .add(TMMBlocks.WALL_LAMP)
                 .add(TMMBlocks.NEON_PILLAR)
                 .add(TMMBlocks.NEON_TUBE)
-                .addTag(TrainMurderMysteryBlockTags.SPRINKLERS)
+                .addTag(TMMBlockTags.SPRINKLERS)
                 .add(TMMBlocks.NAVY_STEEL_PANEL)
                 .add(TMMBlocks.NAVY_STEEL_TILES)
                 .add(TMMBlocks.NAVY_STEEL_TILES_PANEL)
@@ -320,6 +320,6 @@ public class TrainMurderMysteryBlockTagGen extends FabricTagProvider.BlockTagPro
 
 
         this.getOrCreateTagBuilder(BlockTags.INSIDE_STEP_SOUND_BLOCKS)
-                .addTag(TrainMurderMysteryBlockTags.VENT_SHAFTS);
+                .addTag(TMMBlockTags.VENT_SHAFTS);
     }
 }

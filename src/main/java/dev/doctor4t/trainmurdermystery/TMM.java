@@ -166,13 +166,18 @@ public class TMM implements ModInitializer {
 // TORECORD: Initial discovery mode
 
 // Second round of tweaks
-// TODO: Killer blackout night vision
-// TODO: Adjust item prices
-// TODO: Killer demo
-// TODO: Fix role weighting
-// TODO: Make killers have to kill all innocents
-// TODO: Notes for some / every civilian
+// TORECORD: Nightvis with instinct for killers
+// TORECORD: Adjust item prices
+// TORECORD: 5s cooldown on the crowbar
+// TORECORD: Fix role weighting
+// TORECORD: Make killers have to kill all innocents
+// TORECORD: Notes for some / every civilian
 // TODO: bug: the screen never fades back in after the game ends, and then the second time the voice never connects, needing two relogs (not sure how to fix that)
+// TODO: Final gamemode, loose ends:
+// - Everyone spawns on the train with nothing but a crowbar
+// - One minute into the game, everyone is given a derringer (one bullet) and a bat
+// - Last person standing wins
+// - Red sky
 
 // POST VIDEO
 // TORECORD: Ability to customize time of day for supporters + snow density

@@ -6,6 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.doctor4t.trainmurdermystery.client.TMMClient;
 import dev.doctor4t.trainmurdermystery.index.TMMItems;
+import dev.doctor4t.trainmurdermystery.index.tag.TMMItemTags;
 import dev.doctor4t.trainmurdermystery.util.MatrixParticleManager;
 import dev.doctor4t.trainmurdermystery.util.MatrixUtils;
 import net.minecraft.client.MinecraftClient;
@@ -44,7 +45,7 @@ public class HeldItemRendererMixin {
             TMMClient.handParticleManager.render(matrices, vertexConsumers, light);
         }
 
-        if (entity instanceof PlayerEntity playerEntity && stack.isOf(TMMItems.REVOLVER)) {
+        if (entity instanceof PlayerEntity playerEntity && stack.isIn(TMMItemTags.GUNS)) {
             if (playerEntity.getUuid() != MinecraftClient.getInstance().player.getUuid()) {
                 MatrixParticleManager.setMuzzlePosForPlayer(playerEntity, MatrixUtils.matrixToVec(matrices));
             } else if (!renderMode.isFirstPerson()) {
@@ -62,7 +63,7 @@ public class HeldItemRendererMixin {
     )
     private boolean tmm$ignoreNbtUpdateForRevolver(boolean original, @Local(ordinal = 0) ItemStack newItemStack) {
         if (!original) {
-            if (this.mainHand.isOf(TMMItems.REVOLVER) && newItemStack.isOf(TMMItems.REVOLVER)) {
+            if (this.mainHand.isIn(TMMItemTags.GUNS) && newItemStack.isIn(TMMItemTags.GUNS)) {
                 return true;
             }
         }

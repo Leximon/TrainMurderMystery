@@ -33,10 +33,6 @@ public class TrainDoorBlock extends SmallDoorBlock {
             if (player.isCreative() || TMMComponents.TRAIN.get(world).getTrainSpeed() == 0) {
                 return open(state, world, entity, lowerPos);
             } else {
-                if (player.getMainHandStack().isOf(TMMItems.REVOLVER)) {
-                    return ActionResult.PASS;
-                }
-
                 boolean hasLockpick = player.getMainHandStack().isOf(TMMItems.LOCKPICK);
 
                 if (entity.isOpen()) {

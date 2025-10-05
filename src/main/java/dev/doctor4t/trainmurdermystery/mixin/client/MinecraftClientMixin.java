@@ -9,6 +9,7 @@ import com.llamalad7.mixinextras.sugar.Local;
 import dev.doctor4t.trainmurdermystery.cca.PlayerPsychoComponent;
 import dev.doctor4t.trainmurdermystery.client.TMMClient;
 import dev.doctor4t.trainmurdermystery.index.TMMItems;
+import dev.doctor4t.trainmurdermystery.index.tag.TMMItemTags;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.item.HeldItemRenderer;
@@ -39,7 +40,7 @@ public class MinecraftClientMixin {
                     target = "Lnet/minecraft/client/render/item/HeldItemRenderer;resetEquipProgress(Lnet/minecraft/util/Hand;)V"
             ))
     private boolean tmm$cancelRevolverUpdateAnimation(HeldItemRenderer instance, Hand hand) {
-        return !MinecraftClient.getInstance().player.getStackInHand(hand).isOf(TMMItems.REVOLVER);
+        return !MinecraftClient.getInstance().player.getStackInHand(hand).isIn(TMMItemTags.GUNS);
     }
 
     @WrapOperation(method = "handleInputEvents", at = @At(value = "FIELD", target = "Lnet/minecraft/entity/player/PlayerInventory;selectedSlot:I"))

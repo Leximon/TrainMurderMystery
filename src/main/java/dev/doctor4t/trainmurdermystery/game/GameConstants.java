@@ -30,6 +30,7 @@ public interface GameConstants {
     static void init() {
         ITEM_COOLDOWNS.put(TMMItems.KNIFE, getInTicks(1, 0));
         ITEM_COOLDOWNS.put(TMMItems.REVOLVER, getInTicks(0, 5));
+        ITEM_COOLDOWNS.put(TMMItems.DERRINGER, getInTicks(0, 1));
         ITEM_COOLDOWNS.put(TMMItems.GRENADE, getInTicks(5, 0));
         ITEM_COOLDOWNS.put(TMMItems.LOCKPICK, getInTicks(3, 0));
         ITEM_COOLDOWNS.put(TMMItems.CROWBAR, getInTicks(1, 0));

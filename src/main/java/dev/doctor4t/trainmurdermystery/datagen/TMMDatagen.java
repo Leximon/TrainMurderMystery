@@ -6,7 +6,7 @@ import net.fabricmc.fabric.api.event.registry.DynamicRegistries;
 import net.minecraft.registry.RegistryKeys;
 import net.minecraft.world.dimension.DimensionOptions;
 
-public class TrainMurderMysteryDatagen implements DataGeneratorEntrypoint {
+public class TMMDatagen implements DataGeneratorEntrypoint {
 
     @Override
     public void onInitializeDataGenerator(FabricDataGenerator dataGenerator) {
@@ -14,9 +14,10 @@ public class TrainMurderMysteryDatagen implements DataGeneratorEntrypoint {
         DynamicRegistries.register(RegistryKeys.DIMENSION, DimensionOptions.CODEC);
 
         FabricDataGenerator.Pack pack = dataGenerator.createPack();
-        pack.addProvider(TrainMurderMysteryModelGen::new);
-        pack.addProvider(TrainMurderMysteryBlockTagGen::new);
-        pack.addProvider(TrainMurderMysteryLangGen::new);
-        pack.addProvider(TrainMurderMysteryBlockLootTableGen::new);
+        pack.addProvider(TMMModelGen::new);
+        pack.addProvider(TMMBlockTagGen::new);
+        pack.addProvider(TMMItemTagGen::new);
+        pack.addProvider(TMMLangGen::new);
+        pack.addProvider(TMMBlockLootTableGen::new);
     }
 }

@@ -5,11 +5,15 @@ import dev.doctor4t.trainmurdermystery.cca.PlayerMoodComponent;
 import dev.doctor4t.trainmurdermystery.cca.TMMComponents;
 import dev.doctor4t.trainmurdermystery.game.GameConstants;
 import dev.doctor4t.trainmurdermystery.game.GameFunctions;
+import dev.doctor4t.trainmurdermystery.index.TMMDataComponentTypes;
 import dev.doctor4t.trainmurdermystery.index.TMMItems;
 import dev.doctor4t.trainmurdermystery.index.TMMSounds;
+import dev.doctor4t.trainmurdermystery.index.tag.TMMItemTags;
 import net.fabricmc.fabric.api.networking.v1.PlayerLookup;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.network.codec.PacketCodec;
 import net.minecraft.network.codec.PacketCodecs;
@@ -30,11 +34,29 @@ public record GunShootPayload(int target) implements CustomPayload {
         @Override
         public void receive(@NotNull GunShootPayload payload, ServerPlayNetworking.@NotNull Context context) {
             var player = context.player();
-            var revolver = TMMItems.REVOLVER;
-            if (!player.getMainHandStack().isOf(revolver)) return;
+            ItemStack mainHandStack = player.getMainHandStack();
+            if (!mainHandStack.isIn(TMMItemTags.GUNS)) return;
+
+            player.getWorld().playSound(null, player.getX(), player.getEyeY(), player.getZ(), TMMSounds.ITEM_REVOLVER_CLICK, SoundCategory.PLAYERS, 0.5f, 1f + player.getRandom().nextFloat() * .1f - .05f);
+
+            // cancel if derringer has been shot
+            Boolean isUsed = mainHandStack.get(TMMDataComponentTypes.USED);
+            if (mainHandStack.isOf(TMMItems.DERRINGER)) {
+                if(isUsed == null) {
+                    isUsed = false;
+                }
+
+                if (isUsed) {
+                    return;
+                }
+
+                if (!player.isCreative()) mainHandStack.set(TMMDataComponentTypes.USED, true);
+            }
+
             if (player.getServerWorld().getEntityById(payload.target()) instanceof PlayerEntity target && target.distanceTo(player) < 65.0) {
                 var game = TMMComponents.GAME.get(player.getWorld());
-                if (game.isCivilian(target) && !player.isCreative()) {
+                Item revolver = TMMItems.REVOLVER;
+                if (game.isCivilian(target) && !player.isCreative() && mainHandStack.isOf(revolver)) {
                     Scheduler.schedule(() -> {
                         player.getInventory().remove((s) -> s.isOf(revolver), 1, player.getInventory());
                         var item = player.dropItem(revolver.getDefaultStack(), false, false);
@@ -48,13 +70,14 @@ public record GunShootPayload(int target) implements CustomPayload {
                 }
                 GameFunctions.killPlayer(target, true, player);
             }
-            player.getWorld().playSound(null, player.getX(), player.getEyeY(), player.getZ(), TMMSounds.ITEM_REVOLVER_CLICK, SoundCategory.PLAYERS, 0.5f, 1f + player.getRandom().nextFloat() * .1f - .05f);
+
+            player.getWorld().playSound(null, player.getX(), player.getEyeY(), player.getZ(), TMMSounds.ITEM_REVOLVER_SHOOT, SoundCategory.PLAYERS, 5f, 1f + player.getRandom().nextFloat() * .1f - .05f);
+
             for (var tracking : PlayerLookup.tracking(player))
                 ServerPlayNetworking.send(tracking, new ShootMuzzleS2CPayload(player.getUuidAsString()));
             ServerPlayNetworking.send(player, new ShootMuzzleS2CPayload(player.getUuidAsString()));
-            player.getWorld().playSound(null, player.getX(), player.getEyeY(), player.getZ(), TMMSounds.ITEM_REVOLVER_SHOOT, SoundCategory.PLAYERS, 5f, 1f + player.getRandom().nextFloat() * .1f - .05f);
             if (!player.isCreative())
-                player.getItemCooldownManager().set(revolver, GameConstants.ITEM_COOLDOWNS.get(revolver));
+                player.getItemCooldownManager().set(mainHandStack.getItem(), GameConstants.ITEM_COOLDOWNS.getOrDefault(mainHandStack.getItem(), 0));
         }
     }
 }

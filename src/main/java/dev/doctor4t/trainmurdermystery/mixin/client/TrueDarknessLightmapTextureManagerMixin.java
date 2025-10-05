@@ -20,13 +20,6 @@ public abstract class TrueDarknessLightmapTextureManagerMixin {
         MinecraftClient client = MinecraftClient.getInstance();
         ClientWorld world = client.world;
 
-//        if (client.player != null && world != null) {
-//            float f = MinecraftClient.getInstance().world.getSkyBrightness(1.0f);
-//            float absLight = Math.abs(MathHelper.lerp(0, -.5f, .5f));
-//            float l = (float) MathHelper.lerp(1 - Math.pow(0.01, absLight), 1f, f);
-//            return new Vector3f(f, f, l).lerp(other, t);
-//        }
-
         return original.call(instance, other, t);
     }
 
@@ -36,9 +29,6 @@ public abstract class TrueDarknessLightmapTextureManagerMixin {
         ClientWorld world = client.world;
 
         if (client.player != null && world != null) {
-//            BlockPos blockPos = client.player.getBlockPos();
-//            float lightLevelScale = (float) world.getLightLevel(LightType.SKY, blockPos) / (float) world.getMaxLightLevel();
-
             return original.call(instance, new Vector3f(.75f, .75f, .75f), TMMClient.instinctLightLevel);
         }
 

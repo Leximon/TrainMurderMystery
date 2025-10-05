@@ -1,7 +1,7 @@
 package dev.doctor4t.trainmurdermystery.block;
 
 import com.mojang.serialization.MapCodec;
-import dev.doctor4t.trainmurdermystery.index.tag.TrainMurderMysteryBlockTags;
+import dev.doctor4t.trainmurdermystery.index.tag.TMMBlockTags;
 import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -67,7 +67,7 @@ public class BranchBlock extends ConnectingBlock {
 
     public BlockState connectState(BlockState state, BlockPos pos, WorldAccess world, Direction direction) {
         BlockState sideState = world.getBlockState(pos.offset(direction));
-        if (!sideState.isIn(TrainMurderMysteryBlockTags.BRANCHES)) return state;
+        if (!sideState.isIn(TMMBlockTags.BRANCHES)) return state;
         BooleanProperty sideProperty = FACING_PROPERTIES.get(direction.getOpposite());
         if (sideState.contains(sideProperty) && sideState.get(sideProperty)) {
             return state.with(FACING_PROPERTIES.get(direction), true);
@@ -101,7 +101,7 @@ public class BranchBlock extends ConnectingBlock {
                 BlockPos sidePos = pos.offset(direction);
                 BlockState sideState = world.getBlockState(sidePos);
                 BooleanProperty oppositeProperty = FACING_PROPERTIES.get(direction.getOpposite());
-                if (sideState.isIn(TrainMurderMysteryBlockTags.BRANCHES) && sideState.contains(oppositeProperty) && sideState.get(oppositeProperty)) {
+                if (sideState.isIn(TMMBlockTags.BRANCHES) && sideState.contains(oppositeProperty) && sideState.get(oppositeProperty)) {
                     world.setBlockState(sidePos, sideState.with(oppositeProperty, false), Block.NOTIFY_ALL);
                 }
                 success = true;

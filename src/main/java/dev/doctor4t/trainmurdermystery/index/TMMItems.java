@@ -28,6 +28,7 @@ public @SuppressWarnings("unchecked") interface TMMItems {
     Item THROWN_GRENADE = registrar.create("thrown_grenade", new GrenadeItem(new Item.Settings().maxCount(1)));
     Item FIRECRACKER = registrar.create("firecracker", new FirecrackerItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
     Item REVOLVER = registrar.create("revolver", new RevolverItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
+    Item DERRINGER = registrar.create("derringer", new DerringerItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
     Item BODY_BAG = registrar.create("body_bag", new BodyBagItem(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
     Item LETTER = registrar.create("letter", new Item(new Item.Settings().maxCount(1)), EQUIPMENT_GROUP);
     Item BLACKOUT = registrar.create("blackout", new Item(new Item.Settings().maxCount(1)));

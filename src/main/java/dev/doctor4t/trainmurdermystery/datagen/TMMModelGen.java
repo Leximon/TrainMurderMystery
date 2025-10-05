@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class TrainMurderMysteryModelGen extends FabricModelProvider {
+public class TMMModelGen extends FabricModelProvider {
 
     protected static final Model THICK_BAR = new Model(
             Optional.of(TMM.id("block/template_thick_bar")),
@@ -189,7 +189,7 @@ public class TrainMurderMysteryModelGen extends FabricModelProvider {
     private final Map<Block, TexturedModel> uniqueModels = ImmutableMap.<Block, TexturedModel>builder()
             .build();
 
-    public TrainMurderMysteryModelGen(FabricDataOutput output) {
+    public TMMModelGen(FabricDataOutput output) {
         super(output);
     }
 

@@ -5,9 +5,11 @@ import dev.doctor4t.trainmurdermystery.TMM;
 import dev.doctor4t.trainmurdermystery.cca.*;
 import dev.doctor4t.trainmurdermystery.client.gui.RoleAnnouncementText;
 import dev.doctor4t.trainmurdermystery.entity.PlayerBodyEntity;
+import dev.doctor4t.trainmurdermystery.index.TMMDataComponentTypes;
 import dev.doctor4t.trainmurdermystery.index.TMMEntities;
 import dev.doctor4t.trainmurdermystery.index.TMMItems;
 import dev.doctor4t.trainmurdermystery.index.TMMSounds;
+import dev.doctor4t.trainmurdermystery.index.tag.TMMItemTags;
 import dev.doctor4t.trainmurdermystery.util.AnnounceEndingPayload;
 import dev.doctor4t.trainmurdermystery.util.AnnounceWelcomePayload;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
@@ -305,6 +307,16 @@ public class GameFunctions {
 
         if (killer != null) {
             PlayerShopComponent.KEY.get(killer).addToBalance(GameConstants.MONEY_PER_KILL);
+
+            // replenish derringer
+            for (List<ItemStack> list : killer.getInventory().combinedInventory) {
+                for (ItemStack stack : list) {
+                    if (stack.isOf(TMMItems.DERRINGER)) {
+                        stack.set(TMMDataComponentTypes.USED, false);
+                        killer.playSoundToPlayer(TMMSounds.ITEM_REVOLVER_SPIN, SoundCategory.PLAYERS, 1.0f, 1.0f);
+                    }
+                }
+            }
         }
 
         PlayerMoodComponent.KEY.get(victim).reset();
@@ -336,6 +348,7 @@ public class GameFunctions {
             gameWorldComponent.decrementKillsLeft();
             GameTimeComponent.KEY.get(victim.getWorld()).addTime(GameConstants.TIME_ON_CIVILIAN_KILL);
         }
+
     }
 
     public static boolean shouldDropOnDeath(@NotNull ItemStack stack) {
